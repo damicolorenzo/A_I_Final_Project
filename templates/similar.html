@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similar Song</title>
+    <!-- Collegamento ai file CSS di Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Similar Song</h1>
+        <div class="row mt-3">
+            {% for track in similar_tracks %}
+                {% if track.album is not none  %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ track.album.images[0].url }}" class="card-img-top" alt="Album Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ track.name }}</h5>
+                            <p class="card-text">Artists: {% for artist in track.artists %}{{ artist.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                            <form action="/play" method="POST">
+                                <input type="hidden" name="track_id" value="{{ track.id }}">
+                                <button type="submit" class="btn btn-primary">Select</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://imgs.search.brave.com/fXArEBHCg1XnRCIrQhgRljgvjO2sGwDAgvd7EkavsrM/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cHVibGljZG9tYWlu/cGljdHVyZXMubmV0/L3BpY3R1cmVzLzI4/MDAwMC92ZWxrYS9u/b3QtZm91bmQtaW1h/Z2UtMTUzODM4NjQ3/ODdsdS5qcGc" class="card-img-top" alt="Album Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ track.name }}</h5>
+                            <p class="card-text">Artists: {% for artist in track.artists %}{{ artist }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            {% for track in removed_tracks %}
+            <div class="col-md-4">
+                <div class="card" style="border: 2px solid red;">
+                    <img src="{% if track.album.images|length > 0 %}{{ track.album.images[0].url }}{% else %}https://imgs.search.brave.com/fXArEBHCg1XnRCIrQhgRljgvjO2sGwDAgvd7EkavsrM/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cHVibGljZG9tYWlu/cGljdHVyZXMubmV0/L3BpY3R1cmVzLzI4/MDAwMC92ZWxrYS9u/b3QtZm91bmQtaW1h/Z2UtMTUzODM4NjQ3/ODdsdS5qcGc{% endif %}" class="card-img-top" alt="Album Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ track.name }}</h5>
+                        <p class="card-text">Artists: {% for artist in track.artists %}{{ artist.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                        <form action="/play" method="POST">
+                            <input type="hidden" name="track_id" value="{{ track.id }}">
+                            <button type="submit" class="btn btn-primary">Select</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

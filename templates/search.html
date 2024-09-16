@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Song</title>
+    <!-- Collegamento ai file CSS di Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Select Song</h1>
+        <div class="row mt-3">
+            {% for track in tracks %}
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- Utilizza una logica condizionale per l'immagine -->
+                    <img src="{% if track.album.images|length > 0 %}{{ track.album.images[0].url }}{% else %}https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.explicit.bing.net%2Fth%3Fid%3DOIP.OOVbsKyHUzmhCztcq5LMtQHaFj%26pid%3DApi&f=1&ipt=e6f18a01d84e603535f7290b3d1134c454f068d3a7a6e7b1b7cc1f62bcc30749&ipo=images{% endif %}" class="card-img-top" alt="Album Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ track.name }}</h5>
+                        <p class="card-text">Artists: {% for artist in track.artists %}{{ artist.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                        <form action="/createList" method="POST">
+                            <input type="hidden" name="track_id" value="{{ track.id }}">
+                            <input type="hidden" name="type" value="">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+

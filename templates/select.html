@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Song</title>
+</head>
+<body>
+    <h1>Select Song</h1>
+    <p>Selected song: {{ track_name }}</p>
+    <form action="/play" method="POST">
+        <input type="hidden" name="track_id" value="{{ track_id }}">
+        <button type="submit">Play</button>
+    </form>
+</body>
+</html>

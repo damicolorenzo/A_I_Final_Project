@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Song</title>
+</head>
+<body>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-body {
+            padding: 1.25rem;
+        }
+        .btn-cerca-simili {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+    <div class="container">
+        <h1 class="mt-5">Play Song</h1>
+        <div class="row mt-3">
+            <div class="col-md-8">
+                <div class="card">
+                    <iframe src="https://open.spotify.com/embed/track/{{ track_id }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-8">
+                <!-- Aggiungi il pulsante per "Cerca simili" -->
+                <form action="/createList" method="POST">
+                    <input type="hidden" name="track_id" value="{{ track_id }}">
+                    <input type="hidden" name="type" value="reset">
+                    <button type="submit" class="btn btn-cerca-simili" >Cerca simili rispetto questa traccia</button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <!-- Aggiungi il pulsante per "Cerca simili" -->
+                <form action="/createList" method="POST">
+                    <input type="hidden" name="track_id" value="{{ track_id }}">
+                    <input type="hidden" name="type" value="">
+                    <button type="submit" class="btn btn-cerca-simili" >Cerca simili aggiungendo la traccia alle precedenti</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
+
+
+<!-- 
+    <a href="/similar" class="btn btn-primary">Cerca simili</a>
+ -->

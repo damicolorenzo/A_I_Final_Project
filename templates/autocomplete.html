@@ -1,0 +1,5 @@
+<ul class="list-group mt-3">
+    {% for track in tracks %}
+    <li class="list-group-item suggestion">{{ track.name }} - {{ track.artists[0].name }}</li>
+    {% endfor %}
+</ul>
